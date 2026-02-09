@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>AXOKIT — L’IA au service de l’Éducation Nationale</title>
+  <meta name="description" content="Axokit : Station d’IA scientifique 100% autonome (offline) au service de l’éducation nationale — Souveraineté Numérique, Solidarité, Excellence Scientifique." />
+  <meta name="theme-color" content="#0b3c6f" />
+
+  <style>
+    :root{
+      --blue:#0b3c6f;
+      --blue2:#123f86;
+      --gold:#d4af37;
+      --bg:#f5f7ff;
+      --card:#ffffff;
+      --text:#0b1220;
+      --muted:rgba(11,18,32,.65);
+      --stroke:rgba(15,23,42,.12);
+      --shadow:0 18px 60px rgba(0,0,0,.10);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(11,60,111,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(212,175,55,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    a{color:inherit}
+    .topBar{height:4px;background:linear-gradient(90deg,var(--gold),var(--blue))}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 70px}
+
+    /* Header */
+    .hero{
+      margin-top:14px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(135deg, rgba(11,60,111,.96), rgba(5,28,51,.96));
+      color:#fff;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 250px at 15% 20%, rgba(212,175,55,.28), transparent 60%),
+        radial-gradient(600px 300px at 85% 35%, rgba(0,194,255,.22), transparent 55%);
+      pointer-events:none;
+    }
+    .heroInner{
+      position:relative;
+      padding:26px 18px 22px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:center;
+    }
+    @media (max-width: 880px){
+      .heroInner{grid-template-columns:1fr}
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    }
+    .logo{
+      width:58px;height:58px;border-radius:16px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      display:grid;place-items:center;
+      overflow:hidden;
+    }
+    .logo img{width:100%;height:100%;object-fit:contain;padding:8px}
+    .brand h1{
+      margin:0;
+      font-size:clamp(22px, 3.3vw, 34px);
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .tagline{
+      margin:10px 0 0;
+      font-weight:700;
+      color:rgba(255,255,255,.92);
+      font-size:14px;
+    }
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      font-weight:800;font-size:12px;
+      white-space:nowrap;
+    }
+    .chip .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 0 3px rgba(212,175,55,.18);
+    }
+
+    .heroCard{
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:20px;
+      padding:16px;
+      backdrop-filter: blur(10px);
+    }
+    .heroCard h3{margin:0 0 6px;font-size:14px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.9)}
+    .heroCard p{margin:0;color:rgba(255,255,255,.92);font-weight:650}
+    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      text-decoration:none;
+      font-weight:900;
+      font-size:14px;
+      transition:transform .15s ease, opacity .15s ease;
+      user-select:none;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btnPrimary{
+      background:linear-gradient(90deg, var(--gold), #ffd97a);
+      color:#1b1b1b;
+      border:none;
+    }
+    .btnGhost{
+      background:rgba(255,255,255,.10);
+      color:#fff;
+    }
+    .btnSmall{padding:10px 12px;border-radius:12px;font-size:13px}
+
+    /* Sections */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:16px;
+    }
+    @media (max-width: 880px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow:0 12px 38px rgba(0,0,0,.06);
+      padding:16px;
+    }
+    .card h2{
+      margin:0 0 8px;
+      font-size:16px;
+      color:var(--blue);
+      letter-spacing:.2px;
+    }
+    .card p{margin:0;color:var(--text)}
+    .muted{color:var(--muted)}
+    .kpis{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .kpi{
+      border:1px dashed rgba(11,60,111,.25);
+      background:linear-gradient(180deg,#ffffff, #f7f9ff);
+      border-radius:16px;
+      padding:12px;
+    }
+    .kpi b{display:block;color:var(--blue);font-size:18px}
+    .kpi span{display:block;color:var(--muted);font-weight:700;font-size:12px}
+
+    .list{
+      margin:10px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .li{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(15,23,42,.10);
+      background:#fff;
+    }
+    .icon{
+      flex:0 0 34px;
+      width:34px;height:34px;border-radius:12px;
+      background:rgba(11,60,111,.08);
+      display:grid;place-items:center;
+      color:var(--blue);
+      border:1px solid rgba(11,60,111,.12);
+      font-weight:900;
+    }
+    .li b{display:block;color:var(--text)}
+    .li small{display:block;color:var(--muted);font-weight:650;margin-top:2px}
+
+    .full{grid-column:1 / -1}
+    .note{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius:16px;
+      background:linear-gradient(90deg, rgba(212,175,55,.14), rgba(11,60,111,.10));
+      border:1px solid rgba(15,23,42,.10);
+      font-weight:700;
+      color:rgba(11,18,32,.85);
+    }
+
+    /* Footer */
+    .footer{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .footLeft{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      color:var(--muted);font-weight:700;font-size:13px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background:#fff;
+    }
+
+    /* Print */
+    @media print{
+      .btn, .topBar{display:none !important}
+      body{background:#fff}
+      .wrap{padding:0}
+      .hero{box-shadow:none}
+      .card{box-shadow:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topBar"></div>
+
+  <div class="wrap">
+
+    <header class="hero" id="top">
+      <div class="heroInner">
+        <div>
+          <div class="brand">
+            <div class="logo" aria-label="Logo AXOKIT">
+              <!-- Remplacez le src par votre logo : ex: images/logoaxokit.png -->
+              <img src="logoaxokit.png" alt="AXOKIT" onerror="this.style.display='none'; this.parentElement.textContent='AX';" />
+            </div>
+            <div>
+              <h1>AXOKIT : L’IA AU SERVICE DE L’ÉDUCATION NATIONALE</h1>
+              <div class="tagline">Souveraineté Numérique – Solidarité – Excellence Scientifique</div>
+            </div>
+          </div>
+
+          <div class="chips" aria-label="Piliers">
+            <span class="chip"><span class="dot"></span> 100% Autonome (Offline)</span>
+            <span class="chip"><span class="dot"></span> STEM : Maths • Physique • Chimie</span>
+            <span class="chip"><span class="dot"></span> Équité d’accès</span>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="#accord" title="Voir l’accord-cadre">Voir l’accord-cadre</a>
+            <a class="btn btnGhost" href="#modele" title="Voir le modèle économique">Modèle économique</a>
+            <a class="btn btnGhost" href="#tech" title="Voir les caractéristiques techniques">Caractéristiques</a>
+            <button class="btn btnGhost btnSmall" onclick="window.print()" type="button" title="Imprimer / PDF">Imprimer</button>
+          </div>
+        </div>
+
+        <aside class="heroCard" aria-label="Résumé">
+          <h3>Le concept</h3>
+          <p>
+            Axokit est une station d’Intelligence Artificielle scientifique 100% autonome (Offline).
+            Elle offre aux élèves un tuteur numérique de haut niveau en Mathématiques, Physique et Chimie,
+            sans nécessité de connexion Internet ni de serveurs distants.
+          </p>
+        </aside>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Contenu">
+      <article class="card" id="modele">
+        <h2>Le modèle économique : Solidarité nationale</h2>
+        <p class="muted">
+          Le projet repose sur un mécanisme de péréquation entre le secteur privé et le secteur public.
+        </p>
+
+        <ul class="list" role="list">
+          <li class="li">
+            <div class="icon">P</div>
+            <div>
+              <b>Secteur Privé (Le levier)</b>
+              <small>Les établissements privés souscrivent à une licence annuelle « Premium » adaptée à leur catégorie.</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">U</div>
+            <div>
+              <b>Secteur Public (Le bénéficiaire)</b>
+              <small>Grâce aux fonds du privé, l’État équipe gratuitement les collèges et lycées publics.</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">€0</div>
+            <div>
+              <b>Coût pour le public : 0 €</b>
+              <small>Matériel, logiciel, installation et maintenance pris en charge.</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">🍞</div>
+            <div>
+              <b>Impact social</b>
+              <small>Distribution d’un petit-déjeuner quotidien aux élèves (via l’organisme Bii).</small>
+            </div>
+          </li>
+        </ul>
+
+        <div class="note">
+          Objectif : faire du numérique éducatif une réalité, même sans connexion, avec un financement solidaire à l’échelle nationale.
+        </div>
+      </article>
+
+      <article class="card" id="accord">
+        <h2>L’accord-cadre avec l’État</h2>
+        <p class="muted">L’État pilote sans dépenser.</p>
+
+        <ul class="list" role="list">
+          <li class="li">
+            <div class="icon">Ø</div>
+            <div>
+              <b>Engagement budgétaire : NÉANT</b>
+              <small>Aucune avance de trésorerie ni décaissement.</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">⚖</div>
+            <div>
+              <b>Rôle de l’État : Régulateur et prescripteur</b>
+              <small>Il définit les zones prioritaires et officialise l’outil dans le programme.</small>
+            </div>
+          </li>
+        </ul>
+
+        <div class="kpis" aria-label="Chiffres clés">
+          <div class="kpi">
+            <b>1 000 000</b>
+            <span>élèves du privé</span>
+          </div>
+          <div class="kpi">
+            <b>1 500 000</b>
+            <span>élèves du public équipés</span>
+          </div>
+        </div>
+
+        <!-- Bouton vers votre page accord.html si vous l’avez -->
+        <div class="ctaRow" style="margin-top:12px">
+          <a class="btn btnPrimary" href="accord.html">Ouvrir le document Accord-cadre</a>
+          <a class="btn btnGhost" href="#mission">Notre mission</a>
+        </div>
+      </article>
+
+      <article class="card full" id="tech">
+        <h2>Caractéristiques techniques & logistiques</h2>
+        <div class="grid" style="margin-top:10px">
+          <div class="card" style="margin:0">
+            <h2 style="margin:0 0 8px;font-size:15px">1) La station IA</h2>
+            <ul class="list" role="list" style="margin-top:8px">
+              <li class="li">
+                <div class="icon">⚙</div>
+                <div>
+                  <b>Optimisation</b>
+                  <small>Ordinateurs haute performance (400–600 €) capables de faire tourner l’IA localement.</small>
+                </div>
+              </li>
+              <li class="li">
+                <div class="icon">⇄</div>
+                <div>
+                  <b>Accès hybride</b>
+                  <small>Version Web (pour le privé connecté) et version Locale (performance totale sans internet).</small>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin:0">
+            <h2 style="margin:0 0 8px;font-size:15px">2) Optimisation des ressources</h2>
+            <ul class="list" role="list" style="margin-top:8px">
+              <li class="li">
+                <div class="icon">1</div>
+                <div>
+                  <b>Usage collectif</b>
+                  <small>Un seul ordinateur peut servir à tout un établissement.</small>
+                </div>
+              </li>
+              <li class="li">
+                <div class="icon">👥</div>
+                <div>
+                  <b>Organisation</b>
+                  <small>Travail par groupes de 3 élèves, planning hebdomadaire et mode « Auditorium » via vidéoprojecteur.</small>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:12px">
+          Résultat : une solution robuste, déployable partout, avec une approche rationnelle des équipements.
+        </div>
+      </article>
+
+      <article class="card" id="why">
+        <h2>Pourquoi maintenant ?</h2>
+        <ul class="list" role="list">
+          <li class="li">
+            <div class="icon">🌍</div>
+            <div>
+              <b>Réduction de la fracture numérique</b>
+              <small>Accès à l’IA même dans les zones sans internet.</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">🎓</div>
+            <div>
+              <b>Excellence académique</b>
+              <small>Soutien intensif dans les matières scientifiques (STEM).</small>
+            </div>
+          </li>
+          <li class="li">
+            <div class="icon">✨</div>
+            <div>
+              <b>Modernisation de l’image</b>
+              <small>Une école sans Axokit est désormais perçue comme dépassée.</small>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <article class="card" id="mission">
+        <h2>Notre mission</h2>
+        <p style="font-weight:900;font-size:16px;margin:0 0 8px;color:var(--blue)">
+          « Garantir à chaque élève malgache un accès équitable à une éducation scientifique moderne et assurer la réussite de la nouvelle génération. »
+        </p>
+        <p class="muted" style="margin-top:10px">
+          Axokit est pensé pour servir l’intérêt général : performance pédagogique, autonomie technologique et solidarité nationale.
+        </p>
+
+        <div class="ctaRow" style="margin-top:12px">
+          <a class="btn btnPrimary" href="#top">Revenir en haut</a>
+          <a class="btn btnGhost" href="#contact">Contact</a>
+        </div>
+      </article>
+
+      <article class="card full" id="contact">
+        <h2>Contact</h2>
+        <p class="muted" style="margin:0">
+          Remplacez les champs ci-dessous par vos informations (site, email, téléphone).  
+        </p>
+        <div class="footer">
+          <div class="footLeft">
+            <span class="pill">🌐 <span id="siteTxt">axokit.madawork.com</span></span>
+            <span class="pill">✉️ <span id="mailTxt">contact@votredomaine.com</span></span>
+            <span class="pill">📞 <span id="telTxt">+261 XX XX XXX XX</span></span>
+          </div>
+          <div class="ctaRow" style="margin:0">
+            <a class="btn btnGhost btnSmall" href="axokit.madawork.com" onclick="event.preventDefault(); alert('Modifiez ce lien (href) avec votre URL complète.');">Ouvrir le site</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </div>
+
+  <script>
+    // (Optionnel) Vous pouvez personnaliser ici rapidement le bloc contact :
+    // document.getElementById('siteTxt').textContent = 'axokit.madawork.com';
+    // document.getElementById('mailTxt').textContent = 'myteamsmadagascar@gmail.com';
+    // document.getElementById('telTxt').textContent  = '+261 33 29 430 07';
+  </script>
+</body>
+</html>
